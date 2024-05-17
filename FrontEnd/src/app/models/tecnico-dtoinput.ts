@@ -7,8 +7,6 @@ export interface TecnicoDtoinput {
   senha: string;
   telefone: string;
   endereco: Endereco;
-/*  perfis?: number[];
-  dataCriacao?: string;*/
   cpf: string;
 }
 

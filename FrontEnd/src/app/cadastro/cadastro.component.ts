@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { CadastroService } from '../services/cadastro.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro',

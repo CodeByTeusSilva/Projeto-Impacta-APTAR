@@ -1,0 +1,47 @@
+<div class="content">
+  <div *ngIf="tipoUsuario">
+    <h1 *ngIf="tecnicoEncontrado">
+      <img src=".\assets\images\tecnicoimg.png" alt="Ícone Técnico" class="icon">
+      Técnico
+    </h1>
+    <h1 *ngIf="empresaEncontrada">
+      <img src=".\assets\images\empresaimg.png" alt="Ícone Admin" class="icon">
+      Empresa
+    </h1>
+  </div>
+</div>
+
+<div class=menu>
+  <mat-card-content>
+    <div *ngIf="tipoUsuario">
+
+      <mat-tab-group *ngIf="tecnicoEncontrado">
+        <mat-tab label="Perfil" [routerLink]="'/consultaTecnico'">
+          <app-consulta-tecnico></app-consulta-tecnico>
+        </mat-tab>
+        <mat-tab label="Chamados" [routerLink]="'/chamadotec'">
+          <app-tabela-tecnico></app-tabela-tecnico>
+        </mat-tab>
+
+        <mat-tab label="Formulario de entrega" [routerLink]="'/entrega'">
+          <app-formulario-de-entrega-tecnicos></app-formulario-de-entrega-tecnicos>
+        </mat-tab>
+      </mat-tab-group>
+
+      <mat-tab-group *ngIf="empresaEncontrada">
+        <mat-tab label="Perfil" [routerLink]="'/consultaEmpresa'">
+          <app-consulta-empresa></app-consulta-empresa>
+        </mat-tab>
+
+        <mat-tab label="Chamados" [routerLink]="'/consultaEmpresa'">
+          <app-tabela-empresa></app-tabela-empresa>
+        </mat-tab>
+
+        <mat-tab label="Abrir Chamado" [routerLink]="'/abertura'">
+          <app-abertura-de-chamado-empresa></app-abertura-de-chamado-empresa>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+  </mat-card-content>
+</div>

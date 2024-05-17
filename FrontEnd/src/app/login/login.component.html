@@ -1,26 +1,21 @@
-<mat-toolbar color="primary" class="toolbar">
-  <div class="toolbar-content">
-    <img mat-card-image src="./assets/images/aptarGrey.png" [routerLink]="'/home'" class="toolbar-image">
-  </div>
-</mat-toolbar>
-
 <div class="center-container">
   <div class="container">
     <h2>Seja bem vindo!</h2>
     <mat-card-content>
-      <form [formGroup]="form" class="min-width">
+      <form class="min-width">
         <mat-form-field class="input">
-          <input matInput placeholder="Usuário" formControlName="nome">
+          <input [(ngModel)]="email" matInput placeholder="Email" name="email">
         </mat-form-field>
 
         <mat-form-field class="input">
-          <input matInput placeholder="Senha" formControlName="senha">
+          <input [(ngModel)]="senha" matInput placeholder="Senha" name="senha">
         </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="onSubmit()">Entre</button>
+      <button mat-raised-button color="primary" (click)="login()">Entre</button>
     </mat-card-actions>
+
   </div>
 </div>
 

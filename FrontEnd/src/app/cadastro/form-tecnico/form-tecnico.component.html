@@ -5,86 +5,101 @@
       <form [formGroup]="form" class="min-width">
         <mat-form-field class="input">
           <input matInput placeholder="Nome" formControlName="nome">
+          <mat-error *ngIf="form.get('nome')?.invalid && (form.get('nome')?.dirty || form.get('nome')?.touched)">
+            Nome é obrigatório
+          </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="form.get('nome')?.invalid && (form.get('nome')?.dirty || form.get('nome')?.touched)">
-          Nome é obrigatório
-        </mat-error>
+
 
         <mat-form-field class="input">
           <input matInput placeholder="CPF" formControlName="cpf">
+          <mat-error *ngIf="form.get('cpf')?.invalid && (form.get('cpf')?.dirty || form.get('cpf')?.touched)">
+            <ng-container *ngIf="form.get('cpf')?.errors?.['required']">
+              CPF é obrigatório.
+            </ng-container>
+            <ng-container *ngIf="form.get('cpf')?.errors?.['cpfInvalid']">
+              CPF inválido.
+            </ng-container>
+          </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="form.get('cpf')?.invalid && (form.get('cpf')?.dirty || form.get('cpf')?.touched)">
-          CPF é obrigatório.
-        </mat-error>
+
 
         <mat-form-field class="input">
           <input matInput placeholder="Telefone" formControlName="telefone">
+          <mat-error *ngIf="form.get('telefone')?.invalid && (form.get('telefone')?.dirty || form.get('telefone')?.touched)">
+            Telefone é obrigatório.
+          </mat-error>
         </mat-form-field>
-        <mat-error *ngIf="form.get('telefone')?.invalid && (form.get('telefone')?.dirty || form.get('telefone')?.touched)">
-          Telefone é obrigatório.
-        </mat-error>
+
 
         <div formGroupName="endereco" fxLayout="column">
           <div class="input-group" fxLayout="row" fxLayoutGap="16px">
             <div fxFlex="33%">
               <mat-form-field class="input">
                 <input matInput placeholder="CEP" formControlName="cep" (blur)="consultaCEP()">
+                <mat-error *ngIf="form.get('endereco.cep')?.invalid && (form.get('endereco.cep')?.dirty || form.get('endereco.cep')?.touched)">
+                  CEP inválido.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.cep')?.invalid && (form.get('endereco.cep')?.dirty || form.get('endereco.cep')?.touched)">
-                CEP inválido.
-              </mat-error>
+
             </div>
             <div fxFlex="67%">
               <mat-form-field class="input">
-                <input matInput placeholder="Logradouro" formControlName="logradouro">
+                <input matInput placeholder="Logradouro" formControlName="logradouro" readonly>
+                <mat-error *ngIf="form.get('endereco.logradouro')?.invalid && (form.get('endereco.logradouro')?.dirty || form.get('endereco.logradouro')?.touched)">
+                  Logradouro é obrigatório.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.logradouro')?.invalid && (form.get('endereco.logradouro')?.dirty || form.get('endereco.logradouro')?.touched)">
-                Logradouro é obrigatório.
-              </mat-error>
+
             </div>
           </div>
           <div class="input-group" fxLayout="row" fxLayoutGap="16px">
             <div fxFlex="33%">
               <mat-form-field class="input">
                 <input matInput placeholder="Número" formControlName="numero">
+                <mat-error *ngIf="form.get('endereco.numero')?.invalid && (form.get('endereco.numero')?.dirty || form.get('endereco.numero')?.touched)">
+                  Numero é obrigatório.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.numero')?.invalid && (form.get('endereco.numero')?.dirty || form.get('endereco.numero')?.touched)">
-                Numero é obrigatório.
-              </mat-error>
+
             </div>
             <div fxFlex="67%">
               <mat-form-field class="input">
                 <input matInput placeholder="Complemento" formControlName="complemento">
+                <mat-error *ngIf="form.get('endereco.complemento')?.invalid && (form.get('endereco.complemento')?.dirty || form.get('endereco.complemento')?.touched)">
+                  Complemento é obrigatório.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.complemento')?.invalid && (form.get('endereco.complemento')?.dirty || form.get('endereco.complemento')?.touched)">
-                Complemento é obrigatório.
-              </mat-error>
+
             </div>
           </div>
           <div class="input-group" fxLayout="row" fxLayoutGap="16px">
             <div fxFlex="33%">
               <mat-form-field class="input">
-                <input matInput placeholder="Bairro" formControlName="bairro">
+                <input matInput placeholder="Bairro" formControlName="bairro" readonly>
+                <mat-error *ngIf="form.get('endereco.bairro')?.invalid && (form.get('endereco.bairro')?.dirty || form.get('endereco.bairro')?.touched)">
+                  Bairro é obrigatório.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.bairro')?.invalid && (form.get('endereco.bairro')?.dirty || form.get('endereco.bairro')?.touched)">
-                Bairro é obrigatório.
-              </mat-error>
+
             </div>
             <div fxFlex="50%">
               <mat-form-field class="input">
-                <input matInput placeholder="Cidade" formControlName="cidade">
+                <input matInput placeholder="Cidade" formControlName="cidade" readonly>
+                <mat-error *ngIf="form.get('endereco.cidade')?.invalid && (form.get('endereco.cidade')?.dirty || form.get('endereco.cidade')?.touched)">
+                  Cidade  obrigatório.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.cidade')?.invalid && (form.get('endereco.cidade')?.dirty || form.get('endereco.cidade')?.touched)">
-                Cidade  obrigatório.
-              </mat-error>
+
             </div>
             <div fxFlex="17%">
               <mat-form-field class="input">
-                <input matInput placeholder="UF" formControlName="estado">
+                <input matInput placeholder="UF" formControlName="estado" readonly>
+                <mat-error *ngIf="form.get('endereco.estado')?.invalid && (form.get('endereco.estado')?.dirty || form.get('endereco.estado')?.touched)">
+                  Estado é obrigatório.
+                </mat-error>
               </mat-form-field>
-              <mat-error *ngIf="form.get('endereco.estado')?.invalid && (form.get('endereco.estado')?.dirty || form.get('endereco.estado')?.touched)">
-                Estado é obrigatório.
-              </mat-error>
+
             </div>
           </div>
         </div>
@@ -93,34 +108,50 @@
           <h2>INFORMAÇÕES DE LOGIN</h2>
           <mat-form-field class="input">
             <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+              Email inválido.
+            </mat-error>
           </mat-form-field>
-          <mat-error *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
-            Email inválido.
-          </mat-error>
+
 
           <mat-form-field class="input">
             <input matInput placeholder="Senha" formControlName="senha">
+            <mat-error *ngIf="form.get('senha')?.invalid && (form.get('senha')?.dirty || form.get('senha')?.touched)">
+              Senha inválida.
+            </mat-error>
           </mat-form-field>
-          <mat-error *ngIf="form.get('senha')?.invalid && (form.get('senha')?.dirty || form.get('senha')?.touched)">
-            Senha inválida.
-          </mat-error>
 
           <mat-form-field class="input">
-            <input matInput placeholder="Confirmar senha" formControlName="confirmarsenha">
+            <input matInput placeholder="Confirmar senha" formControlName="confirmarSenha">
+            <mat-error *ngIf="form.get('confirmarSenha')?.dirty || form.get('confirmarSenha')?.touched">
+              Favor confirmar senha.
+            </mat-error>
+            <mat-error *ngIf="form.get('confirmarSenha')?.errors?.['equalsTo'] && (form.get('confirmarSenha')?.dirty || form.get('confirmarSenha')?.touched)">
+              As senhas não correspondem.
+            </mat-error>
           </mat-form-field>
-          <mat-error *ngIf="form.get('confirmarsenha')?.hasError('required')">
-            Confirmar senha é obrigatória.
-          </mat-error>
-          <mat-error *ngIf="form.hasError('passwordMismatch')">
-            As senhas não correspondem.
-          </mat-error>
 
         </div>
-
       </form>
     </mat-card-content>
+
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="onSubmitTec()">Entre</button>
+      <!-- Verifica se está no modo de edição -->
+      <ng-container *ngIf="isEditMode; else cadastroButton">
+        <!-- Botão de editar -->
+        <button mat-raised-button color="primary" (click)="onUpdateTec()">
+          Editar
+        </button>
+      </ng-container>
+      <!-- Caso contrário, está no modo de cadastro -->
+      <ng-template #cadastroButton>
+        <!-- Botão de cadastrar -->
+        <button mat-raised-button color="primary" (click)="onSubmitTec()">
+          Cadastrar
+        </button>
+      </ng-template>
     </mat-card-actions>
+    
+
   </div>
 </div>

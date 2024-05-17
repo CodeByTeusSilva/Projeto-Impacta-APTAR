@@ -8,14 +8,14 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  exports:[
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatTabsModule,
-    FlexLayoutModule
+exports:[
+MatCardModule,
+MatButtonModule,
+MatToolbarModule,
+MatFormFieldModule,
+MatInputModule,
+MatTabsModule,
+FlexLayoutModule
 
 
 ]

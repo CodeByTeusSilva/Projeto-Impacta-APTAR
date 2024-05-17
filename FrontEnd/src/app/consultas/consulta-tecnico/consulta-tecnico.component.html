@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-toolbar>Meus dados:</mat-toolbar>
+  
+    <mat-card-content>
+      <p><strong>Nome:</strong> {{ tecnicoEncontrado?.nome }}</p>
+      <p><strong>E-mail:</strong> {{ tecnicoEncontrado?.email }}</p>
+      <p><strong>Senha:</strong> {{ tecnicoEncontrado?.senha }}</p>
+      <p><strong>Telefone:</strong> {{ tecnicoEncontrado?.telefone }}</p>
+      <p><strong>CPF:</strong> {{ tecnicoEncontrado?.cpf }}</p>
+      <p><strong>Endereço:</strong></p>
+      <ul>
+        <li><strong>CEP:</strong> {{ tecnicoEncontrado?.endereco?.cep }}</li>
+        <li><strong>Logradouro:</strong> {{ tecnicoEncontrado?.endereco?.logradouro }}</li>
+        <li><strong>Número:</strong> {{ tecnicoEncontrado?.endereco?.numero }}</li>
+        <li><strong>Complemento:</strong> {{ tecnicoEncontrado?.endereco?.complemento }}</li>
+        <li><strong>Bairro:</strong> {{ tecnicoEncontrado?.endereco?.bairro }}</li>
+        <li><strong>Cidade:</strong> {{ tecnicoEncontrado?.endereco?.cidade }}</li>
+        <li><strong>Estado:</strong> {{ tecnicoEncontrado?.endereco?.estado }}</li>
+      </ul>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [routerLink]="['../../formTecnico', tipoUsuario]">Editar</button>
+      </mat-card-actions>
+      
+    </mat-card-content>
+  
+   
+  </mat-card>
+  
+
+
+
+

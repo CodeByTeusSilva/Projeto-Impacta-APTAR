@@ -1,0 +1,39 @@
+<mat-card>
+    <mat-toolbar>Meus dados:</mat-toolbar>
+  
+    <mat-card-content>
+      <p><strong>Nome:</strong> {{ empresaEncontrada?.nome }}</p>
+      <p><strong>E-mail:</strong> {{ empresaEncontrada?.email }}</p>
+      <p><strong>Senha:</strong> {{ empresaEncontrada?.senha }}</p>
+      <p><strong>Telefone:</strong> {{ empresaEncontrada?.telefone }}</p>
+      <p><strong>CNPJ:</strong> {{ empresaEncontrada?.cnpj }}</p>
+      <p><strong>Endereço:</strong></p>
+      <ul>
+        <li><strong>CEP:</strong> {{ empresaEncontrada?.endereco?.cep }}</li>
+        <li><strong>Logradouro:</strong> {{ empresaEncontrada?.endereco?.logradouro }}</li>
+        <li><strong>Número:</strong> {{ empresaEncontrada?.endereco?.numero }}</li>
+        <li><strong>Complemento:</strong> {{ empresaEncontrada?.endereco?.complemento }}</li>
+        <li><strong>Bairro:</strong> {{ empresaEncontrada?.endereco?.bairro }}</li>
+        <li><strong>Cidade:</strong> {{ empresaEncontrada?.endereco?.cidade }}</li>
+        <li><strong>Estado:</strong> {{ empresaEncontrada?.endereco?.estado }}</li>
+      </ul>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" [routerLink]="['../../formEmpresa', tipoUsuario]">Editar</button>
+      </mat-card-actions>
+      
+    </mat-card-content>
+  
+   
+  </mat-card>
+  
+
+
+
+
+
+
+
+
+  
+  

@@ -1,0 +1,35 @@
+container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+  width: 80vw;
+}
+
+.content {
+  display: flex;
+  color: #3f51b5;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.icon {
+  width: 24px; /* Largura do ícone */
+  height: 24px; /* Altura do ícone */
+  margin-right: 8px; /* Margem à direita para separar o ícone do texto */
+}
+
+
+img {
+  max-width: 100%;
+}
+
+button{
+  margin: 20px 0 0 10px;
+}
