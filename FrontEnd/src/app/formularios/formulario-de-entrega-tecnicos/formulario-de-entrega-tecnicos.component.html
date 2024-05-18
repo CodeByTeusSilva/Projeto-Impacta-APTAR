@@ -1,36 +1,30 @@
-<!-- <div class="center-container">
-  <div class="container">
-    <h2>Formulário de Entrega</h2>
-          Nome é obrigatório
-  </div>
-</div>
--->
+<mat-card>
+  <mat-toolbar color="primary">Novo Formulário</mat-toolbar>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Novo Formulário</title>
-    <link
-      rel="stylesheet"
-      href="formulario-de-entrega-tecnicos.component.css"
-    />
-  </head>
-  <body>
-    <div class="center-container">
-      <h1>Novo Formulário</h1>
-      <form>
-        <div class="form-group">
-          <label for="observacoes">Observações</label>
-          <textarea id="observacoes" name="observacoes" rows="4"></textarea>
+  <div class="container">
+    <mat-card-content>
+      <form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="onSubmitTec()" class="min-width">
+        <mat-form-field class="example-full-width">
+          <mat-label>Digite suas Observações</mat-label>
+          <textarea matInput placeholder="Digite as informações de entrega" formControlName="observacoes"></textarea>
+        </mat-form-field>
+
+        <div>
+          <label for="idchamado">ID do chamado</label>
+          <mat-form-field class="input">
+            <input matInput placeholder="Id do chamado" formControlName="idchamado" type="number">
+          </mat-form-field>
         </div>
-        <div class="form-group">
+
+        <div>
           <label for="foto">Upload de Foto</label>
-          <input type="file" id="foto" name="foto" />
+          <div class="upload-container">
+            <input type="file" id="fotoUrl" (change)="onFileSelected($event)" />
+          </div>
         </div>
-        <button type="submit">Enviar</button>
+
+        <button mat-raised-button color="primary" type="submit">Enviar</button>
       </form>
-    </div>
-  </body>
-</html>
+    </mat-card-content>
+  </div>
+</mat-card>

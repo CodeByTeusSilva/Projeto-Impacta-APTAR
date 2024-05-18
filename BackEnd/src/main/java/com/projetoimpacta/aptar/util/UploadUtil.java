@@ -17,7 +17,7 @@ public class UploadUtil {
             return sucessoUpload;
         }
 
-        String pastaUploadImagem = "C:\\Workspace Java\\aptar - (Teste upload)\\Projeto-Impacta-APTAR-main\\upload";
+        String pastaUploadImagem = "C:\\Users\\User\\Documents\\Projetos\\Impacta\\Projeto-Impacta-APTAR\\upload";
         File dir = new File(pastaUploadImagem);
 
         // Crie a pasta de upload se não existir
