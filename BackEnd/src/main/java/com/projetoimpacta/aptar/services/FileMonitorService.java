@@ -6,7 +6,7 @@ import java.nio.file.*;
 
 @Service
 public class FileMonitorService {
-    private static final String DIRECTORY_TO_WATCH = "C:\\Workspace Java\\aptar - (Teste upload)\\Projeto-Impacta-APTAR-main\\upload";
+    private static final String DIRECTORY_TO_WATCH = "C:\\Users\\User\\Documents\\Projetos\\Impacta\\Projeto-Impacta-APTAR\\upload";
     private static final String COMMIT_MESSAGE = "Arquivo adicionado ou modificado";
 
     public void startMonitoring() {
@@ -51,7 +51,7 @@ public class FileMonitorService {
 
     private void executeGitCommands(Path filePath) throws IOException, InterruptedException {
         // Caminho do script
-        String scriptPath = "C:\\Workspace Java\\aptar - (Teste upload)\\Projeto-Impacta-APTAR-main\\BackEnd\\scripts\\git_auto.sh";
+        String scriptPath = "\"C:\\Users\\User\\Documents\\Projeto-Impacta-APTAR-main\\BackEnd\\scripts\\git_auto.sh";
 
         // Caminho para o Bash (assumindo que você tem o Git Bash instalado)
         String bashPath = "\"C:\\Program Files\\Git\\git-bash.exe\""; // Verifique se este é o caminho correto para o bash.exe
