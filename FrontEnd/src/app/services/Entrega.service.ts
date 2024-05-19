@@ -12,9 +12,7 @@ export class EntregaService {
 
   constructor(private http: HttpClient) { }
 
-  saveTec(tecnicoData: FormsFinalizacaoDTO): Observable<any> {
-
+  saveTec(tecnicoData: FormData): Observable<any> {
     return this.http.post(this.urlTec, tecnicoData);
   }
-
 }

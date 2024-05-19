@@ -4,6 +4,9 @@
   <div class="container">
     <mat-card-content>
       <form [formGroup]="form" enctype="multipart/form-data" (ngSubmit)="onSubmitTec()" class="min-width">
+        <div>
+          <label for="observacoes">Observações</label>
+        </div>
         <mat-form-field class="example-full-width">
           <mat-label>Digite suas Observações</mat-label>
           <textarea matInput placeholder="Digite as informações de entrega" formControlName="observacoes"></textarea>
@@ -11,15 +14,16 @@
 
         <div>
           <label for="idchamado">ID do chamado</label>
-          <mat-form-field class="input">
-            <input matInput placeholder="Id do chamado" formControlName="idchamado" type="number">
-          </mat-form-field>
         </div>
+        <mat-form-field class="input">
+          <input matInput placeholder="Id do chamado" formControlName="chamadoId" type="number">
+        </mat-form-field>
+
 
         <div>
           <label for="foto">Upload de Foto</label>
           <div class="upload-container">
-            <input type="file" name="imagem" (change)="onFileSelected($event)" />
+            <input type="file"  name="imagem" (change)="onFileSelected($event)" formControlName="imagem"/>
           </div>
         </div>
 

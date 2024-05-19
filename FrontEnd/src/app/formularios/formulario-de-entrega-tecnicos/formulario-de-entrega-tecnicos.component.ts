@@ -14,7 +14,7 @@ export class FormularioDeEntregaTecnicosComponent {
 
   form: FormGroup;
   selectedFile: File | null = null;
-  formsfinalizacao?:FormsFinalizacaoDTO;
+  formsfinalizacao?: FormsFinalizacaoDTO;
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +25,7 @@ export class FormularioDeEntregaTecnicosComponent {
     this.form = this.fb.group({
       observacoes: [''],
       chamadoId: [''],
-      fotoUrl:['']
+      imagem: ['']
     });
   }
 
@@ -42,15 +42,22 @@ export class FormularioDeEntregaTecnicosComponent {
       this.form.patchValue({
         observacoes: this.formsfinalizacao.observacoes,
         chamadoId: this.formsfinalizacao.chamadoId,
-        fotoUrl: this.formsfinalizacao.fotoUrl
+        imagem: this.formsfinalizacao.fotoUrl,
       });
     }
   }
 
   onSubmitTec() {
-    console.log(this.form)
+    const formData = new FormData();
     const tecnicoData: FormsFinalizacaoDTO = this.form.value;
-    this.service.saveTec(tecnicoData).subscribe(
+    
+    formData.append('observacoes', tecnicoData.observacoes);
+    formData.append('chamadoId', tecnicoData.chamadoId);
+    if (this.selectedFile) {
+      formData.append('File', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.service.saveTec(formData).subscribe(
       response => {
         console.log('Técnico salvo com sucesso!', response);
       },

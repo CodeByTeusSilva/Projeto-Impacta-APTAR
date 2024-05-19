@@ -1,6 +1,6 @@
 export interface FormsFinalizacaoDTO{
   id?: number;
-  chamadoId: number;
+  chamadoId: string;
   observacoes: string;
   fotoUrl: string;
 }
