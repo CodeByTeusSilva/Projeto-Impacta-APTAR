@@ -1,16 +1,10 @@
 package com.projetoimpacta.aptar.services;
 
-import com.projetoimpacta.aptar.domain.Chamado;
-import com.projetoimpacta.aptar.domain.Empresa;
-import com.projetoimpacta.aptar.domain.Endereco;
-import com.projetoimpacta.aptar.domain.Tecnico;
+import com.projetoimpacta.aptar.domain.*;
 import com.projetoimpacta.aptar.domain.enums.Perfil;
 import com.projetoimpacta.aptar.domain.enums.Prioridade;
 import com.projetoimpacta.aptar.domain.enums.Status;
-import com.projetoimpacta.aptar.repositories.ChamadoRepository;
-import com.projetoimpacta.aptar.repositories.EmpresaRepository;
-import com.projetoimpacta.aptar.repositories.EntidadeRepository;
-import com.projetoimpacta.aptar.repositories.TecnicoRepository;
+import com.projetoimpacta.aptar.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +24,9 @@ public class DBService {
 
     @Autowired
     private ChamadoRepository chamadoRepository;
+
+    @Autowired
+    private FormsFinalizacaoRepository formsFinalizacaoRepository;
 
 
     public void instanciaDB() {
@@ -73,34 +70,40 @@ public class DBService {
         empresaRepository.saveAll(List.of(emp1, emp2, emp3, emp4, emp5));
 
 
-        Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.EM_ANDAMENTO, "Chamado 01", "Primeiro Chamado",
+        Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.ENCERRADO, "Chamado 01", "Primeiro Chamado",
                 new Endereco("Rua Pinheiros", 123, null, "01234567", "Paulista", "São Paulo", "SP"),
                 tec1, emp1);
-        Chamado c2 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamado 02", "Segundo Chamado",
+        Chamado c2 = new Chamado(null, Prioridade.ALTA, Status.ENCERRADO, "Chamado 02", "Segundo Chamado",
                 new Endereco("Avenida Paulista", 456, null, "09876543", "Bela Vista", "São Paulo", "SP"),
                 tec2, emp2);
         Chamado c3 = new Chamado(null, Prioridade.BAIXA, Status.ENCERRADO, "Chamado 03", "Terceiro Chamado",
                 new Endereco("Rua Augusta", 789, "Sala 101", "65432109", "Consolação", "São Paulo", "SP"),
                 tec3, emp3);
-        Chamado c4 = new Chamado(null, Prioridade.MEDIA, Status.EM_ANDAMENTO, "Chamado 04", "Quarto Chamado",
+        Chamado c4 = new Chamado(null, Prioridade.MEDIA, Status.ENCERRADO, "Chamado 04", "Quarto Chamado",
                 new Endereco("Rua Oscar Freire", 1234, "Loja 2", "87654321", "Jardins", "São Paulo", "SP"),
                 tec5, emp4);
-        Chamado c5 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamado 05", "Quinto Chamado",
+        Chamado c5 = new Chamado(null, Prioridade.ALTA, Status.ENCERRADO, "Chamado 05", "Quinto Chamado",
                 new Endereco("Rua Pamplona", 567, null, "54321098", "Jardim Paulista", "São Paulo", "SP"),
                 tec1, emp5);
         // Teste - Retornar chamados por empresas
-        Chamado c6 = new Chamado(null, Prioridade.MEDIA, Status.EM_ANDAMENTO, "Chamado 01", "Primeiro Chamado",
+        Chamado c6 = new Chamado(null, Prioridade.MEDIA, Status.ENCERRADO, "Chamado 01", "Primeiro Chamado",
                 new Endereco("Rua Pinheiros", 123, null, "01234567", "Paulista", "São Paulo", "SP"),
                 tec1, emp1);
         Chamado c7 = new Chamado(null, Prioridade.ALTA, Status.ENCERRADO, "Chamado 01", "Primeiro Chamado",
                 new Endereco("Rua Pinheiros", 123, null, "01234567", "Paulista", "São Paulo", "SP"),
                 tec1, emp1);
-        Chamado c8 = new Chamado(null, Prioridade.MEDIA, Status.ABERTO, "Chamado 01", "Primeiro Chamado",
+        Chamado c8 = new Chamado(null, Prioridade.MEDIA, Status.ENCERRADO, "Chamado 01", "Primeiro Chamado",
                 new Endereco("Rua Pinheiros", 123, null, "01234567", "Paulista", "São Paulo", "SP"),
                 tec1, emp1);
 
         chamadoRepository.saveAll(List.of(c1, c2, c3, c4, c5, c6, c7, c8));
 
+        FormsFinalizacao f1 = new FormsFinalizacao(c1, "Teste", "chamado01.jpg");
+        FormsFinalizacao f2 = new FormsFinalizacao(c2, "Teste", "chamado02.jpg");
+        FormsFinalizacao f3 = new FormsFinalizacao(c3, "Teste", "chamado03.jpg");
+        FormsFinalizacao f4 = new FormsFinalizacao(c4, "Teste", "chamado04.jpg");
+
+        formsFinalizacaoRepository.saveAll(List.of(f1, f2, f3, f4));
     }
 
 }
