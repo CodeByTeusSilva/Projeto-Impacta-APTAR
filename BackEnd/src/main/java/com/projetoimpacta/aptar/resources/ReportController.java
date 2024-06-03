@@ -35,11 +35,15 @@ public class ReportController {
         ChamadoDTOout chamado = chamadoService.findChamadoDTOById(id);
         FormsFinalizacaoDTO formsFinalizacao = formsFinalizacaoService.findFormsFinalizacaoByChamadoId(id);
 
-        byte[] pdfBytes = reportService.generateReport(chamado, formsFinalizacao);
+        String reportHtml = reportService.generateReportHtml(chamado, formsFinalizacao);
+        return ResponseEntity.ok(reportHtml.getBytes());
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=relatorio_chamado_" + id + ".pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(pdfBytes);
+
+//        byte[] pdfBytes = reportService.generateReport(chamado, formsFinalizacao);
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=relatorio_chamado_" + id + ".pdf")
+//                .contentType(MediaType.APPLICATION_PDF)
+//                .body(pdfBytes);
     }
 }
