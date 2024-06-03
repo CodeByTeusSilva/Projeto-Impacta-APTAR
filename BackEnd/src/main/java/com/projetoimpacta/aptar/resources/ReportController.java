@@ -9,6 +9,7 @@ import com.projetoimpacta.aptar.services.FormsFinalizacaoService;
 import com.projetoimpacta.aptar.services.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +31,16 @@ public class ReportController {
     private FormsFinalizacaoService formsFinalizacaoService;
 
     @GetMapping("/chamado/{id}")
-    public ResponseEntity<byte[]> getChamadoReport(@PathVariable Long id) throws DocumentException, IOException {
+    public ResponseEntity<String> getChamadoReport(@PathVariable Long id) throws DocumentException, IOException {
         // Buscar os dados do banco de dados
         ChamadoDTOout chamado = chamadoService.findChamadoDTOById(id);
         FormsFinalizacaoDTO formsFinalizacao = formsFinalizacaoService.findFormsFinalizacaoByChamadoId(id);
 
         String reportHtml = reportService.generateReportHtml(chamado, formsFinalizacao);
-        return ResponseEntity.ok(reportHtml.getBytes());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_HTML);
+
+        return new ResponseEntity<>(reportHtml, headers, HttpStatus.OK);
 
 
 //        byte[] pdfBytes = reportService.generateReport(chamado, formsFinalizacao);
