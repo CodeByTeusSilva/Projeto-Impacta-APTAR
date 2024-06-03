@@ -77,6 +77,14 @@
             <version>5.13.0.202109080827-r</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13.2</version>
+        </dependency>
+
+
+
 
     </dependencies>
 

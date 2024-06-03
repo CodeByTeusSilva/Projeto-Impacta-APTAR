@@ -48,7 +48,7 @@ public class FormsFinalizacaoService {
 
     private String saveFile(MultipartFile file) throws IOException {
         // Diretório onde o arquivo será salvo
-        String uploadDir = "caminho/do/diretorio/upload";
+        String uploadDir = "C:\\Workspace Java\\aptar - (Teste upload)\\Projeto-Impacta-APTAR-main\\upload";
         // Nome do arquivo original enviado
         String originalFilename = file.getOriginalFilename();
         // Crie um novo arquivo no diretório de upload
@@ -57,5 +57,20 @@ public class FormsFinalizacaoService {
         file.transferTo(destinationFile);
         // Retorne o nome do arquivo (para salvar em FormsFinalizacao)
         return originalFilename;
+    }
+
+    public FormsFinalizacaoDTO findFormsFinalizacaoByChamadoId(Long chamadoId) {
+        FormsFinalizacao formsFinalizacao = formsFinalizacaoRepository.findByChamadoId(chamadoId)
+                .orElseThrow(() -> new RuntimeException("Formulário de finalização não encontrado"));
+        return mapToDTO(formsFinalizacao);
+    }
+
+    private FormsFinalizacaoDTO mapToDTO(FormsFinalizacao formsFinalizacao) {
+        FormsFinalizacaoDTO dto = new FormsFinalizacaoDTO();
+        dto.setId(formsFinalizacao.getId());
+        dto.setChamadoId(formsFinalizacao.getChamado().getId());
+        dto.setObservacoes(formsFinalizacao.getObservacoes());
+        dto.setFotoUrl(formsFinalizacao.getFotoUrl());
+        return dto;
     }
 }

@@ -76,4 +76,10 @@ public class Endereco {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return logradouro + ", " + numero + (complemento != null && !complemento.isEmpty() ? ", " + complemento : "") +
+                ", " + bairro + ", " + cidade + " - " + estado + ", CEP: " + cep;
+    }
 }

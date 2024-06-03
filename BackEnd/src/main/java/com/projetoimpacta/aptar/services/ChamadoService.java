@@ -105,4 +105,26 @@ public class ChamadoService {
         return chamadosDTO;
     }
 
+    public ChamadoDTOout findChamadoDTOById(Long id) {
+        Chamado chamado = findById(id);
+        return mapToDTO(chamado);
+    }
+
+    private ChamadoDTOout mapToDTO(Chamado chamado) {
+        ChamadoDTOout dto = new ChamadoDTOout();
+        dto.setId(chamado.getId());
+        dto.setNumeroChamado(chamado.getNumeroChamado());
+        dto.setDataAbertura(chamado.getDataAbertura());
+        dto.setDataFechamento(chamado.getDataFechamento());
+        dto.setPrioridade(chamado.getPrioridade().toString());
+        dto.setTitulo(chamado.getTitulo());
+        dto.setObservacoes(chamado.getObservacoes());
+        dto.setEndereco(chamado.getEndereco());
+        dto.setTecnico(chamado.getTecnico().getId());
+        dto.setEmpresa(chamado.getEmpresa().getId());
+        dto.setNomeTecnico(chamado.getTecnico().getNome());
+        dto.setNomeEmpresa(chamado.getEmpresa().getNome());
+        return dto;
+    }
+
 }
