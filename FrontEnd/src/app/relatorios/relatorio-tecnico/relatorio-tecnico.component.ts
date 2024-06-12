@@ -89,4 +89,9 @@ export class RelatorioTecnicoComponent implements OnInit {
       default: return '';
     }
   }
+
+  openReport(chamadoId: number): void {
+    const url = `http://localhost:8080/reports/chamado/${chamadoId}`;
+    window.open(url, '_blank');
+  }
 }
