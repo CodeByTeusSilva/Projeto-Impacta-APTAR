@@ -1,7 +1,6 @@
 package com.projetoimpacta.aptar.resources;
 
 import com.itextpdf.text.DocumentException;
-import com.projetoimpacta.aptar.domain.Endereco;
 import com.projetoimpacta.aptar.dtos.ChamadoDTOout;
 import com.projetoimpacta.aptar.dtos.FormsFinalizacaoDTO;
 import com.projetoimpacta.aptar.services.ChamadoService;
@@ -15,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/reports")
@@ -41,13 +39,22 @@ public class ReportController {
         headers.setContentType(MediaType.TEXT_HTML);
 
         return new ResponseEntity<>(reportHtml, headers, HttpStatus.OK);
+    }
 
+    @GetMapping("/chamado/{id}/pdf")
+    public ResponseEntity<byte[]> downloadChamadoReportPdf(@PathVariable Long id) throws DocumentException, IOException {
+        // Buscar os dados do banco de dados
+        ChamadoDTOout chamado = chamadoService.findChamadoDTOById(id);
+        FormsFinalizacaoDTO formsFinalizacao = formsFinalizacaoService.findFormsFinalizacaoByChamadoId(id);
 
-//        byte[] pdfBytes = reportService.generateReport(chamado, formsFinalizacao);
-//
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=relatorio_chamado_" + id + ".pdf")
-//                .contentType(MediaType.APPLICATION_PDF)
-//                .body(pdfBytes);
+        byte[] pdfBytes = reportService.generateReport(chamado, formsFinalizacao);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "relatorio_chamado_" + id + ".pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdfBytes);
     }
 }

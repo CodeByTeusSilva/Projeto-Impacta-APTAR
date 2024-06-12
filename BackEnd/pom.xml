@@ -83,6 +83,12 @@
             <version>5.5.13.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>9.1.22</version>
+        </dependency>
+
 
 
 
