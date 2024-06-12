@@ -1,63 +1,50 @@
-create table entidade
-(
-    data_criacao date         null,
-    id           bigint auto_increment primary key,
-    dtype        varchar(31)  not null,
-    nome         varchar(255) null,
-    cpf          varchar(255) null,
-    cnpj         varchar(255) null,
-    telefone     varchar(255) null,
-    email        varchar(255) null,
-    senha        varchar(255) null,
-    cep          varchar(255) null,
-    logradouro   varchar(255) null,
-    numero       int          null,
-    complemento  varchar(255) null,
-    bairro       varchar(255) null,
-    cidade       varchar(255) null,
-    estado       varchar(255) null,
+Table entidade {
+  id bigint [primary key, increment]
+  data_criacao date
+  numero int
+  dtype varchar(31) [not null]
+  bairro varchar(255)
+  cep varchar(255)
+  cidade varchar(255)
+  cnpj varchar(255) [unique]
+  complemento varchar(255)
+  cpf varchar(255) [unique]
+  email varchar(255) [unique]
+  estado varchar(255)
+  logradouro varchar(255)
+  nome varchar(255)
+  senha varchar(255)
+  telefone varchar(255)
+}
 
-    constraint UK_6uw8ktq6m368gh1g39jv62p0d
-        unique (cnpj),
-    constraint UK_7tgepxudnfygkyj3nfkepruot
-        unique (email),
-    constraint UK_oesmc2oqfw4qgfwotuq5l1u8
-        unique (cpf)
-);
+Table chamado {
+  id bigint [primary key, increment]
+  empresa_id bigint [ref: > entidade.id]
+  tecnico_id bigint [ref: > entidade.id]
+  numero int
+  titulo varchar(255)
+  observacoes varchar(255)
+  data_abertura date
+  data_fechamento date
+  prioridade tinyint
+  status tinyint
+  bairro varchar(255)
+  cep varchar(255)
+  cidade varchar(255)
+  complemento varchar(255)
+  estado varchar(255)
+  logradouro varchar(255)
+  numero_chamado varchar(255)
+}
 
-create table chamado
-(
-    id              bigint auto_increment primary key,
-    numero_chamado  varchar(255) null,
-    data_abertura   date         null,
-    data_fechamento date         null,
-    prioridade      tinyint      null,
-    status          tinyint      null,
-    empresa_id      bigint       null,
-    tecnico_id      bigint       null,
-    titulo          varchar(255) null,
-    observacoes     varchar(255) null,
-    cep             varchar(255) null,
-    logradouro      varchar(255) null,
-    numero          int          null,
-    complemento     varchar(255) null,
-    bairro          varchar(255) null,
-    cidade          varchar(255) null,
-    estado          varchar(255) null,
+Table form_finalizacao {
+  id bigint [primary key, increment]
+  chamado_id bigint [ref: > chamado.id, unique]
+  foto_url varchar(255)
+  observacoes varchar(255)
+}
 
-
-    constraint FKn8n7erg1uu5ri43vojsodj259
-        foreign key (empresa_id) references entidade (id),
-    constraint FKpdtjlr6hovdublk3hn178klj2
-        foreign key (tecnico_id) references entidade (id)
-);
-
-create table perfis
-(
-    perfis      int    null,
-    entidade_id bigint not null,
-    constraint FKxnvkyn65gtqd6b1erqvvdre4
-        foreign key (entidade_id) references entidade (id)
-);
-
-
+Table perfis {
+  entidade_id bigint [not null, ref: > entidade.id]
+  perfis int
+}
