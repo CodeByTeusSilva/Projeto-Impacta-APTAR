@@ -1,67 +1,120 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abertura de Chamado</title>
-    <link rel="stylesheet" href="abertura-de-chamado-empresa.component.css">
-</head>
-<body>
-  <div class="center-container">
-      <h1>Abertura de Chamado</h1>
-      <form id="chamadoForm">
-          <div class="form-group">
-              <label for="tituloChamado">Título do chamado</label>
-              <input type="text" id="tituloChamado" name="tituloChamado" required>
+<div class="center-container">
+    <div class="container">
+      <h2>Abertura de Chamado</h2>
+      <mat-card-content>
+        <form [formGroup]="form" class="min-width">
+          <mat-form-field class="input">
+            <input matInput placeholder="Título do chamado" formControlName="titulo">
+            <mat-error *ngIf="form.get('titulo')?.invalid && (form.get('titulo')?.dirty || form.get('titulo')?.touched)">
+              Título é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input">
+            <textarea matInput placeholder="Observações" formControlName="observacoes"></textarea>
+            <mat-error *ngIf="form.get('observacoes')?.invalid && (form.get('observacoes')?.dirty || form.get('observacoes')?.touched)">
+              Observações é obrigatório
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="input">
+            <mat-label>Prioridade</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="0">Baixa</mat-option>
+                <mat-option value="1">Média</mat-option>
+                <mat-option value="2">Alta</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="input hidden">
+          <input matInput placeholder="Campo Oculto" formControlName="Prioridade">
+        </mat-form-field>
+        <mat-form-field class="input hidden">
+          <input matInput placeholder="Campo Oculto" formControlName="empresa">
+        </mat-form-field>
+
+  
+
+  
+          <div formGroupName="endereco" fxLayout="column">
+            <div class="input-group" fxLayout="row" fxLayoutGap="16px">
+              <div fxFlex="33%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="CEP" formControlName="cep" (blur)="consultaCEP()">
+                  <mat-error *ngIf="form.get('endereco.cep')?.invalid && (form.get('endereco.cep')?.dirty || form.get('endereco.cep')?.touched)">
+                    CEP inválido.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="67%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="Logradouro" formControlName="logradouro" readonly>
+                  <mat-error *ngIf="form.get('endereco.logradouro')?.invalid && (form.get('endereco.logradouro')?.dirty || form.get('endereco.logradouro')?.touched)">
+                    Logradouro é obrigatório.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="input-group" fxLayout="row" fxLayoutGap="16px">
+              <div fxFlex="33%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="Número" formControlName="numero">
+                  <mat-error *ngIf="form.get('endereco.numero')?.invalid && (form.get('endereco.numero')?.dirty || form.get('endereco.numero')?.touched)">
+                    Numero é obrigatório.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="67%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="Complemento" formControlName="complemento">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="input-group" fxLayout="row" fxLayoutGap="16px">
+              <div fxFlex="33%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="Bairro" formControlName="bairro" readonly>
+                  <mat-error *ngIf="form.get('endereco.bairro')?.invalid && (form.get('endereco.bairro')?.dirty || form.get('endereco.bairro')?.touched)">
+                    Bairro é obrigatório.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="37%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="Cidade" formControlName="cidade" readonly>
+                  <mat-error *ngIf="form.get('endereco.cidade')?.invalid && (form.get('endereco.cidade')?.dirty || form.get('endereco.cidade')?.touched)">
+                    Cidade  obrigatório.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="20%">
+                <mat-form-field class="input">
+                  <input matInput placeholder="UF" formControlName="estado" readonly>
+                  <mat-error *ngIf="form.get('endereco.estado')?.invalid && (form.get('endereco.estado')?.dirty || form.get('endereco.estado')?.touched)">
+                    Estado é obrigatório.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-              <label for="observacoes">Observações</label>
-              <input type="text" id="observacoes" name="observacoes">
-          </div>
-          <div class="form-group">
-              <label for="prioridade">Prioridade</label>
-              <select id="prioridade" name="prioridade" required>
-                  <option value="0">Baixa</option>
-                  <option value="1">Média</option>
-                  <option value="2">Alta</option>
-              </select>
-          </div>
-          <div class="form-group">
-              <label for="cep">CEP</label>
-              <input type="text" id="cep" name="cep" required>
-          </div>
-          <div class="form-group">
-              <label for="logradouro">Logradouro</label>
-              <input type="text" id="logradouro" name="logradouro" required>
-          </div>
-          <div class="form-group">
-              <label for="numero">Número</label>
-              <input type="text" id="numero" name="numero" required>
-          </div>
-          <div class="form-group">
-              <label for="complemento">Complemento</label>
-              <input type="text" id="complemento" name="complemento">
-          </div>
-          <div class="form-group">
-              <label for="bairro">Bairro</label>
-              <input type="text" id="bairro" name="bairro" required>
-          </div>
-          <div class="form-group">
-              <label for="cidade">Cidade</label>
-              <input type="text" id="cidade" name="cidade" required>
-          </div>
-          <div class="form-group">
-              <label for="uf">UF</label>
-              <input type="text" id="uf" name="uf" required>
-          </div>
-          <div class="form-group">
-              <label for="tecnico">Técnico</label>
-              <select id="tecnico" name="tecnico" required>
-                  <option value="">Selecione um técnico</option>
-              </select>
-          </div>
-          <button type="submit" class="btn-save">Salvar</button>
-      </form>
+          <mat-form-field class="input">
+            <mat-label>Técnico</mat-label>
+            <mat-select formControlName="tecnico">
+                <mat-option value="1">Valdir Cezar</mat-option>
+                <mat-option value="2">Richard Stallman</mat-option>
+                <mat-option value="3">Claude Elwood Shannon</mat-option>
+                <mat-option value="4">Tim Berners-Lee</mat-option>
+                <mat-option value="5">Linus Torvalds</mat-option>
+            </mat-select>
+         </mat-form-field>
+  
+
+        </form>
+      </mat-card-content>
+  
+      <mat-card-actions>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="submitForm()">Abrir Chamado</button>
+          </mat-card-actions>
+        
+      </mat-card-actions>
+    </div>
   </div>
-</body>
-</html>

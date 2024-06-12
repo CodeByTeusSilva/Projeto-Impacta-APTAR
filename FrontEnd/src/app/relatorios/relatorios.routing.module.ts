@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormulariosComponent } from './formularios.component';
+import { RelatoriosComponent } from './relatorios.component';
 import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
-  {path: '', component: FormulariosComponent}
+  {path: '', component: RelatoriosComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes),HttpClientModule],
   exports: [RouterModule]
 })
-export class FormulariosRoutingModule { }
+export class RelatoriosRoutingModule { }

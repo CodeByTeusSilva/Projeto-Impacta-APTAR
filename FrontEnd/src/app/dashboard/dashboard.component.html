@@ -26,6 +26,10 @@
         <mat-tab label="Formulario de entrega" [routerLink]="'/entrega'">
           <app-formulario-de-entrega-tecnicos></app-formulario-de-entrega-tecnicos>
         </mat-tab>
+
+        <mat-tab label="Relatórios para dowload" [routerLink]="'/relatoriotec'">
+          <app-relatorio-tecnico></app-relatorio-tecnico>
+        </mat-tab>
       </mat-tab-group>
 
       <mat-tab-group *ngIf="empresaEncontrada">
@@ -39,6 +43,10 @@
 
         <mat-tab label="Abrir Chamado" [routerLink]="'/abertura'">
           <app-abertura-de-chamado-empresa></app-abertura-de-chamado-empresa>
+        </mat-tab>
+
+        <mat-tab label="Relatórios para dowload" [routerLink]="'/relatorioemp'">
+          <app-relatorio-empresa></app-relatorio-empresa>
         </mat-tab>
 
       </mat-tab-group>

@@ -1,149 +1,47 @@
-mat-card{
-  margin: 10px;
-}
-.container {
-  display: flex;
-  height: 100vh;
+.mat-tab-group {
+  margin-bottom: 48px;
 }
 
-.header {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  width: 100%;
-}
-
-.content {
-  display: flex;
-  flex-grow: 1;
-}
-
-.sidenav {
-  background-color: #3F51B5;
-  color: #fff;
-  width: 200px;
-  height: 100%;
-  padding-top: 20px;
-}
-
-.sidenav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.custom-list-item {
-  text-align: center;
-}
-
-.custom-list-item a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 10px 16px;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-
-/*FORMS*/
-/* Estilo geral do corpo da página */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+.toolbar {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
-/* Container centralizado para o formulário */
+.toolbar-content {
+  width: auto;
+  height: 70%;
+}
+
+.toolbar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
 .center-container {
-  width: 90%;
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 40%;
+  margin: 2em auto;
+  align-items: center;
+  justify-content: center;
+
+}
+.container {
   text-align: center;
-  overflow: hidden;
-}
-
-/* Estilo do título principal */
-h1 {
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-/* Estilo para grupos de formulário */
-.form-group {
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-/* Estilo para rótulos dos campos */
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-/* Estilo para campos de entrada de texto e seleção */
-input[type="text"], select {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-input[readonly] {
-  background-color: #e9ecef;
-}
-
-/* Estilo para botão de salvar */
-.btn-save {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-/* Mudança de cor ao passar o mouse sobre o botão de salvar */
-.btn-save:hover {
-  background-color: #218838;
-}
-
-/* Estilo para layout de linha de formulário */
-.form-group-row {
-  display: flex;
+  align-items: center;
   justify-content: space-between;
-}
 
-/* Ajustes de margem para os campos de entrada de texto lado a lado */
-.form-group-row .form-group {
-  width: 48%;
 }
+.input {
+  width: calc(100% - 8px);
+  margin-right: 8px;
+  }
 
-/* Responsividade para telas menores */
-@media screen and (max-width: 600px) {
-  .center-container {
-      width: 95%;
+  button{
+    align-items: center;
+    justify-content: center;
   }
-  .form-group-row {
-      flex-wrap: wrap;
+
+  .hidden {
+    display: none;
   }
-  .form-group-row .form-group {
-      width: 100%;
-  }
-}

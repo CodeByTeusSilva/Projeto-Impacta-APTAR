@@ -23,6 +23,8 @@ import { FormulariosComponent } from './formularios/formularios.component';
 import { FormulariosModule } from './formularios/formulario.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ConsultasModule } from './consultas/consultas.module';
+import { RelatoriosComponent } from './relatorios/relatorios.component';
+import { RelatoriosModule } from './relatorios/relatorios.module';
 
 
 
@@ -34,7 +36,8 @@ DashboardComponent,
 LoginComponent,
 CadastroComponent,
 ConsultasComponent,
-FormulariosComponent
+FormulariosComponent,
+RelatoriosComponent
 
 ],
 imports: [
@@ -48,6 +51,7 @@ FlexLayoutModule,
 AppRoutingModule,
 CadastroModule,
 FormulariosModule,
+RelatoriosModule,
 ConsultasModule,
 AppMaterialModule,
 MatInputModule,

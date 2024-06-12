@@ -11,6 +11,8 @@ import { AberturaDeChamadoEmpresaComponent } from './formularios/abertura-de-cha
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TabelaTecnicoComponent } from './consultas/tabela-tecnico/tabela-tecnico.component';
 import { TabelaEmpresaComponent } from './consultas/tabela-empresa/tabela-empresa.component';
+import { RelatorioEmpresaComponent } from './relatorios/relatorio-empresa/relatorio-empresa.component';
+import { RelatorioTecnicoComponent } from './relatorios/relatorio-tecnico/relatorio-tecnico.component';
 
 const routes: Routes = [
 { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -26,6 +28,8 @@ loadChildren: () => import('./cadastro/cadastro.module').then(m => m.CadastroMod
 { path: 'formempresa', component: FormEmpresaComponent},
 {path:'entrega', component: FormularioDeEntregaTecnicosComponent},
 {path:'abertura', component: AberturaDeChamadoEmpresaComponent},
+{path: 'relatoriortec', component: RelatorioTecnicoComponent},
+{path:'relatorioemp', component:RelatorioEmpresaComponent},
 
 
 { path: 'consultas', 
