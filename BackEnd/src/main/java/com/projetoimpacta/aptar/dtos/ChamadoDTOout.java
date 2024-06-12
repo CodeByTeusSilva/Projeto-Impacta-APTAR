@@ -19,7 +19,7 @@ public class ChamadoDTOout implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataAbertura = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataFechamento;
+    private LocalDate dataFechamento = LocalDate.now();
     @NotNull(message = "O campo PRIORIDADE é requerido")
     private String prioridade;
     @NotNull(message = "O campo STATUS é requerido")

@@ -2,95 +2,93 @@ package com.projetoimpacta.aptar.services;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.projetoimpacta.aptar.dtos.ChamadoDTOout;
 import com.projetoimpacta.aptar.dtos.FormsFinalizacaoDTO;
 import org.springframework.stereotype.Service;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class ReportService {
 
+    private static final String LOGO_URL = "http://localhost:8080/aptarBlue.png";
+
     public String generateReportHtml(ChamadoDTOout chamado, FormsFinalizacaoDTO formsFinalizacao) {
         StringBuilder html = new StringBuilder();
 
-        html.append("<html>");
-        html.append("<head>");
-        html.append("<style>");
-        html.append("body { font-family: Arial, sans-serif; margin: 20px; }");
-        html.append("h1 { color: #333; }");
-        html.append("p { color: #666; }");
-        html.append("table { width: 100%; border-collapse: collapse; margin-top: 20px; }");
-        html.append("th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }");
-        html.append("th { background-color: #f2f2f2; }");
-        html.append("</style>");
-        html.append("</head>");
-        html.append("<body>");
+        html.append("<html>")
+                .append("<head>")
+                .append("<meta charset=\"UTF-8\">")
+                .append("<title>Relatório do Chamado ").append(chamado.getNumeroChamado()).append("</title>")
+                .append("<style>")
+                .append("body { font-family: 'Arial', sans-serif; margin: 0 auto; max-width: 800px; padding: 20px; }")
+                .append("h1, h2 { color: #333; text-align: center; }")
+                .append("p { color: #666; }")
+                .append("table { width: 100%; border-collapse: collapse; margin-top: 20px; }")
+                .append("th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }")
+                .append("th { background-color: #f2f2f2; }")
+                .append("img.logo { display: block; margin: 0 auto 20px; max-width: 150px; }")
+                .append("</style>")
+                .append("</head>")
+                .append("<body>");
 
-        html.append("<h1>Relatório do Chamado</h1>");
+        // Adicionando a imagem do logo
+        html.append("<img src=\"").append(LOGO_URL).append("\" alt=\"Logo Aptar\" class=\"logo\" />");
+
+        html.append("<h1>Relatório do Chamado ").append(chamado.getNumeroChamado()).append("</h1>");
 
         if (chamado != null) {
             html.append("<table>");
-            if (chamado.getId() != null) {
-                html.append("<tr><th>ID</th><td>").append(chamado.getId()).append("</td></tr>");
-            }
-            if (chamado.getNumeroChamado() != null) {
-                html.append("<tr><th>Número do Chamado</th><td>").append(chamado.getNumeroChamado()).append("</td></tr>");
-            }
-            if (chamado.getDataAbertura() != null) {
-                html.append("<tr><th>Data de Abertura</th><td>").append(chamado.getDataAbertura().toString()).append("</td></tr>");
-            }
-            if (chamado.getDataFechamento() != null) {
-                html.append("<tr><th>Data de Fechamento</th><td>").append(chamado.getDataFechamento().toString()).append("</td></tr>");
-            }
-            if (chamado.getPrioridade() != null) {
-                html.append("<tr><th>Prioridade</th><td>").append(chamado.getPrioridade()).append("</td></tr>");
-            }
-            if (chamado.getStatus() != null) {
-                html.append("<tr><th>Status</th><td>").append(chamado.getStatus()).append("</td></tr>");
-            }
-            if (chamado.getTitulo() != null) {
-                html.append("<tr><th>Título</th><td>").append(chamado.getTitulo()).append("</td></tr>");
-            }
-            if (chamado.getObservacoes() != null) {
-                html.append("<tr><th>Observações</th><td>").append(chamado.getObservacoes()).append("</td></tr>");
-            }
-            if (chamado.getEndereco() != null) {
-                html.append("<tr><th>Endereço</th><td>").append(chamado.getEndereco().toString()).append("</td></tr>");
-            }
-            if (chamado.getNomeTecnico() != null) {
-                html.append("<tr><th>Técnico</th><td>").append(chamado.getNomeTecnico()).append("</td></tr>");
-            }
-            if (chamado.getNomeEmpresa() != null) {
-                html.append("<tr><th>Empresa</th><td>").append(chamado.getNomeEmpresa()).append("</td></tr>");
-            }
+            addTableRow(html, "ID", chamado.getId());
+            addTableRow(html, "Número do Chamado", chamado.getNumeroChamado());
+            addTableRow(html, "Data de Abertura", chamado.getDataAbertura());
+            addTableRow(html, "Data de Fechamento", chamado.getDataFechamento());
+            addTableRow(html, "Prioridade", chamado.getPrioridade());
+            addTableRow(html, "Status", chamado.getStatus());
+            addTableRow(html, "Título", chamado.getTitulo());
+            addTableRow(html, "Observações", chamado.getObservacoes());
+            addTableRow(html, "Endereço", chamado.getEndereco());
+            addTableRow(html, "Técnico", chamado.getNomeTecnico());
+            addTableRow(html, "Empresa", chamado.getNomeEmpresa());
             html.append("</table>");
         }
 
         if (formsFinalizacao != null) {
             html.append("<h2>Formulário de Finalização</h2>");
             html.append("<table>");
-            if (formsFinalizacao.getId() != null) {
-                html.append("<tr><th>ID</th><td>").append(formsFinalizacao.getId()).append("</td></tr>");
-            }
-            if (formsFinalizacao.getChamadoId() != null) {
-                html.append("<tr><th>Chamado ID</th><td>").append(formsFinalizacao.getChamadoId()).append("</td></tr>");
-            }
-            if (formsFinalizacao.getObservacoes() != null) {
-                html.append("<tr><th>Observações</th><td>").append(formsFinalizacao.getObservacoes()).append("</td></tr>");
-            }
-            if (formsFinalizacao.getFotoUrl() != null) {
-                html.append("<tr><th>Foto URL</th><td>").append(formsFinalizacao.getFotoUrl()).append("</td></tr>");
-            }
+            addTableRow(html, "ID", formsFinalizacao.getId());
+            addTableRow(html, "Chamado ID", formsFinalizacao.getChamadoId());
+            addTableRow(html, "Observações", formsFinalizacao.getObservacoes());
+            addTableRow(html, "Foto URL", formsFinalizacao.getFotoUrl());
             html.append("</table>");
         }
 
-        html.append("</body>");
-        html.append("</html>");
+        Long id = chamado.getId();
+
+        // Adicionar link de download com nome dinâmico
+        html.append("<p style=\"text-align: center; margin-top: 20px;\">")
+                .append("<a href=\"/reports/chamado/")
+                .append(id)
+                .append("/pdf\" target=\"_blank\">Download Relatório em PDF</a>")
+                .append("</p>");
+
+        html.append("</body>")
+                .append("</html>");
 
         return html.toString();
+    }
+
+    private void addTableRow(StringBuilder html, String label, Object value) {
+        if (value != null) {
+            html.append("<tr><th>").append(label).append("</th><td>").append(value.toString()).append("</td></tr>");
+        }
     }
 
     public byte[] generateReport(ChamadoDTOout chamado, FormsFinalizacaoDTO formsFinalizacao) throws DocumentException, IOException {
@@ -99,63 +97,53 @@ public class ReportService {
         PdfWriter.getInstance(document, byteArrayOutputStream);
 
         document.open();
-        document.add(new Paragraph("Relatório do Chamado"));
+        document.addTitle("Relatório do Chamado " + chamado.getNumeroChamado());
+        document.addAuthor("Aptar");
+        document.addSubject("Relatório gerado automaticamente");
+        document.addKeywords("Java, PDF, iText, Spring Boot");
+
+        // Configuração do padrão A4 e centralização do conteúdo
+        document.setPageSize(com.itextpdf.text.PageSize.A4);
+        document.add(new Paragraph(" ", new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12)));
+        document.add(new Paragraph(" ", new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12)));
+        document.add(new Paragraph("Relatório do Chamado " + chamado.getNumeroChamado(),
+                new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 20, com.itextpdf.text.Font.BOLD)));
 
         if (chamado != null) {
-            if (chamado.getId() != null) {
-                document.add(new Paragraph("ID: " + chamado.getId()));
-            }
-            if (chamado.getNumeroChamado() != null) {
-                document.add(new Paragraph("Número do Chamado: " + chamado.getNumeroChamado()));
-            }
-            if (chamado.getDataAbertura() != null) {
-                document.add(new Paragraph("Data de Abertura: " + chamado.getDataAbertura().toString()));
-            }
-            if (chamado.getDataFechamento() != null) {
-                document.add(new Paragraph("Data de Fechamento: " + chamado.getDataFechamento().toString()));
-            }
-            if (chamado.getPrioridade() != null) {
-                document.add(new Paragraph("Prioridade: " + chamado.getPrioridade()));
-            }
-            if (chamado.getStatus() != null) {
-                document.add(new Paragraph("Status: " + chamado.getStatus()));
-            }
-            if (chamado.getTitulo() != null) {
-                document.add(new Paragraph("Título: " + chamado.getTitulo()));
-            }
-            if (chamado.getObservacoes() != null) {
-                document.add(new Paragraph("Observações: " + chamado.getObservacoes()));
-            }
-            if (chamado.getEndereco() != null) {
-                document.add(new Paragraph("Endereço: " + chamado.getEndereco().toString()));
-            }
-            if (chamado.getNomeTecnico() != null) {
-                document.add(new Paragraph("Técnico: " + chamado.getNomeTecnico()));
-            }
-            if (chamado.getNomeEmpresa() != null) {
-                document.add(new Paragraph("Empresa: " + chamado.getNomeEmpresa()));
-            }
+            addParagraph(document, "ID", chamado.getId());
+            addParagraph(document, "Número do Chamado", chamado.getNumeroChamado());
+            addParagraph(document, "Data de Abertura", chamado.getDataAbertura());
+            addParagraph(document, "Data de Fechamento", chamado.getDataFechamento());
+            addParagraph(document, "Prioridade", chamado.getPrioridade());
+            addParagraph(document, "Status", chamado.getStatus());
+            addParagraph(document, "Título", chamado.getTitulo());
+            addParagraph(document, "Observações", chamado.getObservacoes());
+            addParagraph(document, "Endereço", chamado.getEndereco());
+            addParagraph(document, "Técnico", chamado.getNomeTecnico());
+            addParagraph(document, "Empresa", chamado.getNomeEmpresa());
         }
 
         if (formsFinalizacao != null) {
             document.add(new Paragraph(" "));
-            document.add(new Paragraph("Formulário de Finalização"));
+            document.add(new Paragraph("Formulário de Finalização",
+                    new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 16, com.itextpdf.text.Font.BOLD)));
 
-            if (formsFinalizacao.getId() != null) {
-                document.add(new Paragraph("ID: " + formsFinalizacao.getId()));
-            }
-            if (formsFinalizacao.getChamadoId() != null) {
-                document.add(new Paragraph("Chamado ID: " + formsFinalizacao.getChamadoId()));
-            }
-            if (formsFinalizacao.getObservacoes() != null) {
-                document.add(new Paragraph("Observações: " + formsFinalizacao.getObservacoes()));
-            }
-            if (formsFinalizacao.getFotoUrl() != null) {
-                document.add(new Paragraph("Foto URL: " + formsFinalizacao.getFotoUrl()));
-            }
+            addParagraph(document, "ID", formsFinalizacao.getId());
+            addParagraph(document, "Chamado ID", formsFinalizacao.getChamadoId());
+            addParagraph(document, "Observações", formsFinalizacao.getObservacoes());
+            addParagraph(document, "Foto URL", formsFinalizacao.getFotoUrl());
         }
 
         document.close();
         return byteArrayOutputStream.toByteArray();
+    }
+
+    private void addParagraph(Document document, String label, Object value) throws DocumentException {
+        if (value != null) {
+            Paragraph paragraph = new Paragraph(label + ": " + value.toString(),
+                    new com.itextpdf.text.Font(com.itextpdf.text.Font.FontFamily.HELVETICA, 12));
+            paragraph.setAlignment(Element.ALIGN_LEFT);
+            document.add(paragraph);
+        }
     }
 }
