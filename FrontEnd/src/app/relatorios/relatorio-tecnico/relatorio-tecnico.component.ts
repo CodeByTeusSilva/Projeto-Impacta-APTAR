@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/login/auth.service';
 import { RelatoriosService } from 'src/app/services/relatorios.service';
 
-
 @Component({
   selector: 'app-relatorio-tecnico',
   templateUrl: './relatorio-tecnico.component.html',
@@ -14,23 +13,19 @@ import { RelatoriosService } from 'src/app/services/relatorios.service';
 export class RelatorioTecnicoComponent implements OnInit {
   
   chamados: Observable<Chamados[]>;
-  empresas:any[] =[];
+  empresas: any[] = [];
   tecnicos: any[] = [];
 
+  displayedColumns = ['numeroChamado', 'cidade', 'bairro', 'empresa', 'acoes' ]
 
   constructor(
     private relatoriosService: RelatoriosService,
     private http: HttpClient,
     private auth: AuthService
-
-  ){
-   
+  ) {
     this.chamados = this.relatoriosService.list();
-    console.log(this.chamados)
-  };
-
-  
-  displayedColumns = ['numeroChamado', 'cidade', 'bairro', 'empresa', 'acoes' ]
+    console.log(this.chamados);
+  }
 
   ngOnInit(): void {
     const tecLogado = this.auth.getTecnicoEncontrado();
@@ -45,25 +40,13 @@ export class RelatorioTecnicoComponent implements OnInit {
           chamados.forEach((chamado: Chamados) => {
             const empresaEncontrada = this.empresas.find(empresa => empresa.id === chamado.empresa);
             if (empresaEncontrada) {
-              chamado.empresa = empresaEncontrada.nome; // 
+              chamado.empresa = empresaEncontrada.nome;
             }
           });
   
-          // Filtrar chamados com status ENCERRADO e pertencentes à tecnico logado
-          let chamadosFiltrados = chamados.filter(chamado => chamado.status !== 2 && chamado.tecnico === tecLogado.id);
-  
-          // Ordenar chamados por status
-          chamadosFiltrados = chamadosFiltrados.sort((a, b) => {
-            if (a.status === 0 && b.status !== 0) {
-              return -1;
-            } else if (a.status !== 0 && b.status === 0) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-  
-          this.chamados = of(chamadosFiltrados);
+          // Remover a filtragem e ordenação específica por status
+          // Atualizar diretamente o observable 'chamados' com todos os chamados
+          this.chamados = of(chamados);
         });
       },
       (error: any) => {
@@ -71,21 +54,21 @@ export class RelatorioTecnicoComponent implements OnInit {
       }
     );
   }
-  
-  
 
   getButtonColor(status: number): string {
     switch (status) {
       case 0: return 'accent';
-      case 1: return 'primary';
+      case 1: return 'yellow';
+      case 2: return 'primary';
       default: return '';
     }
   }
 
   getButtonLabel(status: number): string {
     switch (status) {
-      case 0: return 'EM PREPARAÇÃO';
-      case 1: return 'DOWNLOAD';
+      case 0: return 'Á ADAPTAR';
+      case 1: return 'EM PREPARAÇÃO';
+      case 2: return 'DOWNLOAD';
       default: return '';
     }
   }

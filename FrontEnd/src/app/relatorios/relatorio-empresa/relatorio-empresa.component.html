@@ -33,7 +33,7 @@
       <ng-container matColumnDef="acoes">
         <th mat-header-cell *matHeaderCellDef> Download </th>
         <td mat-cell *matCellDef="let chamado">
-            <button mat-flat-button [color]="getButtonColor(chamado.status)">
+            <button mat-flat-button [color]="getButtonColor(chamado.status)" (click)="openReport(chamado.id)">
                 {{ getButtonLabel(chamado.status) }}
             </button>
         </td>

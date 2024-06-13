@@ -51,7 +51,7 @@ export class RelatorioEmpresaComponent implements OnInit {
       });
 
       // Filtrar chamados com status ENCERRADO e pertencentes à empresa logada
-      let chamadosFiltrados = chamados.filter(chamado => chamado.status !== 2 && chamado.empresa === empresaLogada.id);
+      let chamadosFiltrados = chamados.filter(chamado => chamado.status == 2 && chamado.empresa === empresaLogada.id);
 
       // Ordenar chamados por status
       chamadosFiltrados = chamadosFiltrados.sort((a, b) => {
@@ -75,17 +75,24 @@ export class RelatorioEmpresaComponent implements OnInit {
   getButtonColor(status: number): string {
     switch (status) {
       case 0: return 'accent';
-      case 1: return 'primary';
+      case 1: return 'accent';
+      case 2: return 'primary';
       default: return '';
     }
   }
 
   getButtonLabel(status: number): string {
     switch (status) {
-      case 0: return 'EM PREPARAÇÃO';
-      case 1: return 'DOWNLOAD';
+      case 0: return 'Á ADAPTAR';
+      case 1: return 'EM PREPARAÇÃO';
+      case 2: return 'DOWNLOAD';
       default: return '';
     }
+  }
+
+  openReport(chamadoId: number): void {
+    const url = `http://localhost:8080/reports/chamado/${chamadoId}`;
+    window.open(url, '_blank');
   }
 }
 
